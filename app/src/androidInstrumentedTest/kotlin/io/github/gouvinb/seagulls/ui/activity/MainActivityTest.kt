@@ -15,10 +15,8 @@
  */
 package io.github.gouvinb.seagulls.ui.activity
 
-import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.printToLog
 import org.junit.Rule
 import org.junit.Test
 
