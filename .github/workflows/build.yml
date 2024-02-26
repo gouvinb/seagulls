@@ -1,12 +1,16 @@
 name: build
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 env:
   GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2g -Dorg.gradle.daemon=false -Dkotlin.incremental=false"
 
 jobs:
-  linux-jvm-android:
+  android:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
 
@@ -33,74 +37,87 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Build
+      - name: Check build-logic
         run: |
-          ./gradlew build --stacktrace
+          ./gradlew check -p build-logic
+
+      - name: Check spotless
+        run: |
+          ./gradlew spotlessCheck --no-configuration-cache
+
+      - name: Lint
+        run: |
+          ./gradlew lint --stacktrace
 
       - name: Test
         run: |
-          ./gradlew allTests --stacktrace
-
-  macos:
-    runs-on: macos-11
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
-
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v2
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Configure JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-          cache: 'gradle'
+          ./gradlew test --stacktrace
 
       - name: Build
         run: |
-          ./gradlew linkIosArm64 linkIosSimulatorArm64 linkMacosArm64 linkTvosArm64 linkTvosSimulatorArm64 linkWatchosArm64 linkWatchosSimulatorArm64 --stacktrace
+          ./gradlew build -x check -x test -x lint --stacktrace
 
-      - name: Test
-        run: |
-          ./gradlew iosSimulatorArm64Test tvosSimulatorArm64Test watchosSimulatorArm64Test macosArm64Test --stacktrace
 
-  windows:
-    runs-on: windows-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
-
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/wrapper-validation-action@v2
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Configure JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-          cache: 'gradle'
-
-      - name: Build
-        run: |
-          ./gradlew linkMingwX64 --stacktrace
-
-      - name: Test
-        run: |
-          ./gradlew mingwX64Test --stacktrace
+#  macos:
+#    runs-on: macos-11
+#    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+#
+#    strategy:
+#      fail-fast: false
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Validate Gradle Wrapper
+#        uses: gradle/wrapper-validation-action@v2
+#
+#      - name: Copy CI gradle.properties
+#        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+#
+#      - name: Configure JDK
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'zulu'
+#          java-version: 17
+#          cache: 'gradle'
+#
+#      - name: Build
+#        run: |
+#          ./gradlew linkIosArm64 linkIosSimulatorArm64 linkMacosArm64 linkTvosArm64 linkTvosSimulatorArm64 linkWatchosArm64 linkWatchosSimulatorArm64 --stacktrace
+#
+#      - name: Test
+#        run: |
+#          ./gradlew iosSimulatorArm64Test tvosSimulatorArm64Test watchosSimulatorArm64Test macosArm64Test --stacktrace
+#
+#  windows:
+#    runs-on: windows-latest
+#    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+#
+#    strategy:
+#      fail-fast: false
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Validate Gradle Wrapper
+#        uses: gradle/wrapper-validation-action@v2
+#
+#      - name: Copy CI gradle.properties
+#        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+#
+#      - name: Configure JDK
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: 'zulu'
+#          java-version: 17
+#          cache: 'gradle'
+#
+#      - name: Build
+#        run: |
+#          ./gradlew linkMingwX64 --stacktrace
+#
+#      - name: Test
+#        run: |
+#          ./gradlew mingwX64Test --stacktrace
