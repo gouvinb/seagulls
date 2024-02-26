@@ -105,5 +105,6 @@ rootProject.buildFileName = "build.gradle.kts"
 includeProject("app", app)
 
 // Libs
+includeProject("ui", library)
 
 // samples

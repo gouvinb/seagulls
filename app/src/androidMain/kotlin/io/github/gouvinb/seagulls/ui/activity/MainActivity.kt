@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.gouvinb.seagulls.R
-import io.github.gouvinb.seagulls.ui.theme.SeagullsTheme
+import io.github.gouvinb.seagulls.lib.ui.theme.SeagullsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
