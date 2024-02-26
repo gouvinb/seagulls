@@ -18,10 +18,10 @@ import utils.extenstion.configureSourceSetHierarchy
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("plugin.android.application")
+    id("plugin.android.library")
     kotlin("multiplatform")
 
-    id("plugin.android.application.compose")
+    id("plugin.android.library.compose")
 
     id("plugins.compile.java")
     id("plugins.compile.kotlin")
@@ -30,7 +30,7 @@ plugins {
     id("plugins.spotless.android")
 }
 
-group = "io.github.gouvinb.seagulls"
+group = "io.github.gouvinb.seagulls.lib.ui"
 version = "0.1.0"
 
 android {
@@ -44,11 +44,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
@@ -71,8 +66,6 @@ kotlin {
                 implementation(libs.androidx.compose.runtime)
                 implementation(libs.androidx.compose.ui.tooling)
                 implementation(libs.androidx.compose.ui.tooling.preview)
-
-                implementation(projects.seagulls.library.ui)
             }
         }
         val androidUnitTest by getting {}

@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.gouvinb.seagulls.ui.theme
+package io.github.gouvinb.seagulls.lib.ui.theme
 
 import androidx.compose.ui.graphics.Color
+
+// TODO: Add more color palette here
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
