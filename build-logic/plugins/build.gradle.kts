@@ -7,7 +7,6 @@ group = "io.github.kotlin.multiplatform.template.gradle"
 
 dependencies {
     implementation(libs.gradlePlugin.android)
-    implementation(libs.gradlePlugin.dokka)
     implementation(libs.gradlePlugin.kotlin)
     implementation(libs.gradlePlugin.spotless)
 }
@@ -46,12 +45,6 @@ gradlePlugin {
         register("compileKotlin") {
             id = "plugins.compile.kotlin"
             implementationClass = "plugins.CompileKotlinPlugin"
-        }
-
-        // Dokka
-        register("dokka") {
-            id = "plugins.dokka"
-            implementationClass = "plugins.DokkaPlugin"
         }
 
         // Spotless

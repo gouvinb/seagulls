@@ -98,17 +98,12 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "kotlin-multiplatform-project-template"
+rootProject.name = "seagulls"
 rootProject.buildFileName = "build.gradle.kts"
 
 // App
-includeProject("application", app)
-includeProject("application-android", app)
+includeProject("app", app)
 
 // Libs
-includeProject("lib-a", library)
-// includeProject("lib-b", LIBRARY)
 
 // samples
-includeProject("example-a", sample)
-// includeProject("example-b", SAMPLE)

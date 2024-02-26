@@ -1,8 +1,8 @@
-# Kotlin Multiplatform Project Template
-
-This project is the template for any project using Kotlin Multiplatform.
+# Seagulls
 
 ## References
+
+- Generated from gouvinb/kotlin-multiplatform-project-template
 
 - https://github.com/square/okio
 - https://github.com/android/nowinandroid
