@@ -12,7 +12,6 @@ env:
 jobs:
   android:
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
 
     steps:
       - name: Checkout
@@ -57,7 +56,6 @@ jobs:
 
 #  macos:
 #    runs-on: macos-11
-#    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
 #
 #    steps:
 #      - name: Checkout
@@ -86,7 +84,6 @@ jobs:
 #
 #  windows:
 #    runs-on: windows-latest
-#    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
 #
 #    steps:
 #      - name: Checkout
