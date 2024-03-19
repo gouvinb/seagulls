@@ -63,7 +63,13 @@ fun SeagullsTheme(
 ) {
     val context = LocalContext.current
     val colorScheme = when {
-        !disableDynamicTheming -> if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        !disableDynamicTheming -> if (darkTheme) {
+            dynamicDarkColorScheme(
+                context,
+            )
+        } else {
+            dynamicLightColorScheme(context)
+        }
         androidTheme -> if (darkTheme) DarkAndroidColorScheme else LightAndroidColorScheme
         else -> if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
@@ -81,6 +87,6 @@ fun SeagullsTheme(
         colorScheme = colorScheme,
         shapes = Shapes,
         typography = Typography,
-        content = content
+        content = content,
     )
 }

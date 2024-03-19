@@ -40,7 +40,6 @@ class StandViewModel(
                 started = SharingStarted.Eagerly,
                 initialValue = StandUiState.Loading,
             )
-
 }
 
 sealed interface StandUiState {

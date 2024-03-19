@@ -51,7 +51,6 @@ import io.github.gouvinb.seagulls.feature.stand.ui.screen.StandScreen
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.DarkThemeConfigLocal
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.ThemeBrandLocal
 import io.github.gouvinb.seagulls.lib.ui.theme.SeagullsTheme
-import io.github.gouvinb.seagulls.ui.screen.MainScreen
 import io.github.gouvinb.seagulls.ui.screen.Screen
 import io.github.gouvinb.seagulls.ui.viewmodel.MainActivityUiState
 import io.github.gouvinb.seagulls.ui.viewmodel.MainActivityViewModel
@@ -98,10 +97,9 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
 
-
             SeagullsTheme(
                 darkTheme = darkTheme,
-                androidTheme = shouldUseAndroidTheme(uiState)
+                androidTheme = shouldUseAndroidTheme(uiState),
             ) {
                 val navController = rememberNavController()
 
@@ -124,11 +122,11 @@ class MainActivity : ComponentActivity() {
                                                 saveState = true
                                             }
                                         }
-                                    }
+                                    },
                                 )
                             }
                         }
-                    }
+                    },
                 ) { innerPadding ->
                     NavHost(navController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)) {
                         composable(Screen.Home.route) { HomeScreen(navController) }

@@ -35,7 +35,7 @@ val dataStoreModule = module {
         DataStoreFactory.create(
             serializer = get<UserPreferencesSerializer>(),
             scope = CoroutineScope(get<CoroutineDispatcher>() + SupervisorJob()),
-            migrations = listOf()
+            migrations = listOf(),
         ) {
             androidContext().dataStoreFile("user_preferences.pb")
         }

@@ -22,8 +22,8 @@ object ChannelLocalMapper {
     fun mapToLocal(channelRemote: ChannelRemote) = channelRemote
         .takeIf {
             it.title?.isNotBlank() == true &&
-            it.description?.isNotBlank() == true &&
-            it.link?.isNotBlank() == true
+                it.description?.isNotBlank() == true &&
+                it.link?.isNotBlank() == true
         }
         ?.let {
             ChannelLocal(

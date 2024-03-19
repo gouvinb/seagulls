@@ -21,11 +21,11 @@ import androidx.compose.material.icons.twotone.Category
 import androidx.compose.material.icons.twotone.Home
 import androidx.compose.material.icons.twotone.Search
 import androidx.compose.ui.graphics.vector.ImageVector
-import io.github.gouvinb.seagulls.lib.ui.theme.Icons
 import io.github.gouvinb.seagulls.feature.bookmarks.R as bookmarksR
 import io.github.gouvinb.seagulls.feature.home.R as homeR
 import io.github.gouvinb.seagulls.feature.search.R as searchR
 import io.github.gouvinb.seagulls.feature.stand.R as standR
+import io.github.gouvinb.seagulls.lib.ui.theme.Icons
 
 sealed class Screen(
     val route: String,

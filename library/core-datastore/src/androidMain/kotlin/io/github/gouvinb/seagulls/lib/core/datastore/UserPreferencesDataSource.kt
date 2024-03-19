@@ -19,9 +19,11 @@ import androidx.datastore.core.DataStore
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.DarkThemeConfigLocal
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.ThemeBrandLocal
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.UserDataLocal
-import io.github.gouvinb.seagulls.lib.core.datastore.model.proto.*
+import io.github.gouvinb.seagulls.lib.core.datastore.model.proto.DarkThemeConfigProto
+import io.github.gouvinb.seagulls.lib.core.datastore.model.proto.ThemeBrandProto
+import io.github.gouvinb.seagulls.lib.core.datastore.model.proto.UserPreferencesProto
+import io.github.gouvinb.seagulls.lib.core.datastore.model.proto.copy
 import kotlinx.coroutines.flow.map
-
 
 class UserPreferencesDataSource(
     private val userPreferences: DataStore<UserPreferencesProto>,

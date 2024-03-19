@@ -33,7 +33,11 @@ import io.github.gouvinb.seagulls.lib.ui.theme.Icons
 import io.github.gouvinb.seagulls.lib.ui.theme.SeagullsTheme
 
 @Composable
-fun Todo(modifier: Modifier = Modifier, text: String? = null, contentDescription: String = stringResource(id = R.string.label_screen_wip)) {
+fun Todo(
+    modifier: Modifier = Modifier,
+    text: String? = null,
+    contentDescription: String = stringResource(id = R.string.label_screen_wip),
+) {
     var textBase = stringResource(id = R.string.label_screen_wip)
     if (text?.isNotBlank() == true) {
         textBase = "$textBase\n\n$text"
@@ -45,7 +49,7 @@ fun Todo(modifier: Modifier = Modifier, text: String? = null, contentDescription
                 Icons.Warning,
                 tint = MaterialTheme.colorScheme.primary,
                 contentDescription = contentDescription,
-                modifier = Modifier.padding(end = Dimension.normalSpacing)
+                modifier = Modifier.padding(end = Dimension.normalSpacing),
             )
             Text(textBase)
         }
