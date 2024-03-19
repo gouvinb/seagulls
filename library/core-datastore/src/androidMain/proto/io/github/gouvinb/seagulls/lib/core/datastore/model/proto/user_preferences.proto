@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "io/github/gouvinb/seagulls/lib/core/datastore/model/proto/dark_theme_config.proto";
+import "io/github/gouvinb/seagulls/lib/core/datastore/model/proto/theme_brand.proto";
+
+option java_package = "io.github.gouvinb.seagulls.lib.core.datastore.model.proto";
+option java_multiple_files = true;
+
+message UserPreferencesProto {
+  bool should_hide_onboarding = 1;
+  ThemeBrandProto theme_brand = 2;
+  DarkThemeConfigProto dark_theme_config = 3;
+}

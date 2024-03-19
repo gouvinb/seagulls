@@ -13,6 +13,8 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import utils.extenstion.configureAndroidCompose
+import utils.extenstion.getBundle
+import utils.extenstion.getLibrary
 import utils.extenstion.getPlugin
 import utils.extenstion.libs
 import kotlin.reflect.KClass
@@ -57,6 +59,10 @@ abstract class AndroidComposePlugin(
                 val bom = libs.findLibrary("androidx-compose-bom").get()
                 add("implementation", platform(bom))
                 add("androidTestImplementation", platform(bom))
+
+                add("androidTestImplementation", libs.getBundle("instrumentation.compose.test"))
+
+                add("debugImplementation", libs.getLibrary("androidx.compose.ui.testManifest"))
             }
         }
     }

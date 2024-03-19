@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "io.github.gouvinb.seagulls.lib.core.datastore.model.proto";
+option java_multiple_files = true;
+
+enum ThemeBrandProto {
+  THEME_BRAND_UNSPECIFIED = 0;
+  THEME_BRAND_DEFAULT = 1;
+}

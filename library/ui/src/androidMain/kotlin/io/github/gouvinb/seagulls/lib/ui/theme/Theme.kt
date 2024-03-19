@@ -16,10 +16,13 @@
 package io.github.gouvinb.seagulls.lib.ui.theme
 
 import android.app.Activity
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
@@ -27,16 +30,44 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+/**
+ * Light default theme color scheme
+ */
+@VisibleForTesting
+val LightDefaultColorScheme = lightColorScheme()
+
+/**
+ * Dark default theme color scheme
+ */
+@VisibleForTesting
+val DarkDefaultColorScheme = darkColorScheme()
+
+/**
+ * Light Another theme color scheme
+ */
+@VisibleForTesting
+val LightAndroidColorScheme = lightColorScheme()
+
+/**
+ * Dark Another theme color scheme
+ */
+@VisibleForTesting
+val DarkAndroidColorScheme = darkColorScheme()
+
 @Composable
-fun SeagullsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun SeagullsTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    androidTheme: Boolean = false,
+    disableDynamicTheming: Boolean = !androidTheme,
+    content: @Composable () -> Unit,
+) {
     val context = LocalContext.current
-    val colorScheme = if (darkTheme) {
-        dynamicDarkColorScheme(
-            context
-        )
-    } else {
-        dynamicLightColorScheme(context)
+    val colorScheme = when {
+        !disableDynamicTheming -> if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        androidTheme -> if (darkTheme) DarkAndroidColorScheme else LightAndroidColorScheme
+        else -> if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {

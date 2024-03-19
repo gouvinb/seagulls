@@ -45,7 +45,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.createSourceSet(
  * Here's the main hierarchy of variants. Any `expect` functions in one level of the tree are
  * `actual` functions in a (potentially indirect) child node.
  *
- * ```
+ * ```txt
  *   common
  *   |-- jvm
  *   |-- js
@@ -88,11 +88,9 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.configureSourceSetHierarchy(
         }
         getByName("androidUnitTest") {
             kotlin.srcDir("src/jvmTest/hashFunctions")
-            dependencies {}
         }
         getByName("androidInstrumentedTest") {
             kotlin.srcDir("src/jvmTest/hashFunctions")
-            dependencies {}
         }
     }
 
@@ -101,7 +99,6 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.configureSourceSetHierarchy(
         }
         getByName("jvmTest") {
             kotlin.srcDir("src/jvmTest/hashFunctions")
-            dependencies {}
         }
     }
 

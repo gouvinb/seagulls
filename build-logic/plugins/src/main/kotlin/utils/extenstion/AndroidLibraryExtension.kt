@@ -27,10 +27,12 @@ fun LibraryExtension.configureAndroidLibraryOptions(target: Project) {
 fun LibraryAndroidComponentsExtension.configureAndroidLibraryComponents(target: Project) {
     beforeVariants { variant ->
         variant.enableAndroidTest = variant.enableAndroidTest && (
-                target.projectDir.resolve("src/androidTest").exists() || target.projectDir.resolve("src/androidInstrumentedTest").exists()
+                target.projectDir.resolve("src/androidTest")
+                    .exists() || target.projectDir.resolve("src/androidInstrumentedTest").exists()
                 )
         variant.enableUnitTest = variant.enableUnitTest && (
-                target.projectDir.resolve("src/test").exists() || target.projectDir.resolve("src/androidUnitTest").exists()
+                target.projectDir.resolve("src/test").exists() || target.projectDir.resolve("src/androidUnitTest")
+                    .exists()
                 )
     }
 }

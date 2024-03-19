@@ -18,10 +18,12 @@ import utils.extenstion.configureSourceSetHierarchy
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("plugin.android.application")
-    kotlin("multiplatform")
+    id("plugins.android.application")
+    alias(libs.plugins.kotlin.multiplatform)
 
-    id("plugin.android.application.compose")
+    id("plugins.android.application.compose")
+    id("plugins.di.android")
+    id("plugins.di.android.compose")
 
     id("plugins.compile.java")
     id("plugins.compile.kotlin")
@@ -38,6 +40,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     defaultConfig {
@@ -61,21 +64,34 @@ kotlin {
         configureSourceSetHierarchy(
             enableAndroidProject = true,
         )
-
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.androidx.activity.compose)
-
-                implementation(libs.androidx.compose.foundation)
-                implementation(libs.androidx.compose.material3)
-                implementation(libs.androidx.compose.runtime)
-                implementation(libs.androidx.compose.ui.tooling)
-                implementation(libs.androidx.compose.ui.tooling.preview)
-
-                implementation(projects.seagulls.library.ui)
-            }
-        }
-        val androidUnitTest by getting {}
-        val androidInstrumentedTest by getting {}
     }
+}
+
+dependencies {
+    "androidMainImplementation"(libs.androidx.activity.compose)
+
+    "androidMainImplementation"(libs.androidx.compose.foundation)
+    "androidMainImplementation"(libs.androidx.compose.material)
+    "androidMainImplementation"(libs.androidx.compose.material.iconsExtended)
+    "androidMainImplementation"(libs.androidx.compose.material3)
+    "androidMainImplementation"(libs.androidx.compose.navigationCompose)
+    "androidMainImplementation"(libs.androidx.compose.runtime)
+    "androidMainImplementation"(libs.androidx.compose.ui.tooling)
+    "androidMainImplementation"(libs.androidx.compose.ui.tooling.preview)
+
+    "androidMainImplementation"(libs.androidx.core.splashscreen)
+    "androidMainImplementation"(libs.accompanist.systemuicontroller)
+
+    "androidMainImplementation"(projects.seagulls.library.ui)
+
+    "androidMainImplementation"(projects.seagulls.library.core)
+    "androidMainImplementation"(projects.seagulls.library.coreData)
+    "androidMainImplementation"(projects.seagulls.library.coreDatastore)
+    "androidMainImplementation"(projects.seagulls.library.coreDomain)
+    "androidMainImplementation"(projects.seagulls.library.coreUi)
+
+    "androidMainImplementation"(projects.seagulls.feature.bookmarks)
+    "androidMainImplementation"(projects.seagulls.feature.home)
+    "androidMainImplementation"(projects.seagulls.feature.search)
+    "androidMainImplementation"(projects.seagulls.feature.stand)
 }

@@ -1,5 +1,6 @@
 val app = "app"
 val library = "library"
+val feature = "feature"
 val sample = "sample"
 val thirdParty = "third-party"
 
@@ -18,7 +19,7 @@ val thirdParty = "third-party"
 fun includeProject(path: String, typeOfModule: String) {
     val (fullName, projectDir) = when (typeOfModule) {
         app -> path to path
-        library, sample, thirdParty -> "$typeOfModule:$path" to "$typeOfModule/$path"
+        library, feature, sample, thirdParty -> "$typeOfModule:$path" to "$typeOfModule/$path"
         else -> throw GradleException("Unrecognized :$typeOfModule:$path module.")
     }
     settings.include(":$fullName")
@@ -105,6 +106,17 @@ rootProject.buildFileName = "build.gradle.kts"
 includeProject("app", app)
 
 // Libs
+includeProject("core", library)
+includeProject("core-data", library)
+includeProject("core-datastore", library)
+includeProject("core-domain", library)
+includeProject("core-ui", library)
 includeProject("ui", library)
+
+// Features
+includeProject("bookmarks", feature)
+includeProject("home", feature)
+includeProject("search", feature)
+includeProject("stand", feature)
 
 // samples
