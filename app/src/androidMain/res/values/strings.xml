@@ -17,5 +17,5 @@ limitations under the License.
 <resources>
     <string name="app_name" translatable="false">Seagulls</string>
 
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Home</string>
 </resources>

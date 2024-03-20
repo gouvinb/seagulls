@@ -32,6 +32,7 @@ abstract class AndroidPlugin(
                     with(pluginManager) {
                         apply(libs.getPlugin("android-application").pluginId)
                         apply(libs.getPlugin("kotlin-multiplatform").pluginId)
+                        apply(libs.getPlugin("kotlinx-parcelize").pluginId)
                     }
 
                     extensions.configure<BaseAppModuleExtension> {
@@ -46,6 +47,7 @@ abstract class AndroidPlugin(
                 testedExtensionKClass == LibraryExtension::class && androidComponentsExtensionKClass == LibraryAndroidComponentsExtension::class -> {
                     with(pluginManager) {
                         apply(libs.getPlugin("android-library").pluginId)
+                        apply(libs.getPlugin("kotlinx-parcelize").pluginId)
                     }
 
                     extensions.configure<LibraryExtension> {
@@ -62,12 +64,10 @@ abstract class AndroidPlugin(
             }
 
             dependencies {
-                "coreLibraryDesugaring"(libs.getLibrary("android-desugar-jdk"))
+                add("coreLibraryDesugaring", libs.getLibrary("android-desugar-jdk"))
 
-                "androidTestImplementation"(libs.getBundle("instrumentation.test"))
-                "testImplementation"(libs.getBundle("unit.test"))
-
-                "debugImplementation"(libs.getLibrary("androidx.compose.ui.testManifest"))
+                add("androidTestImplementation", libs.getBundle("instrumentation.test"))
+                add("testImplementation", libs.getBundle("unit.test"))
             }
         }
     }

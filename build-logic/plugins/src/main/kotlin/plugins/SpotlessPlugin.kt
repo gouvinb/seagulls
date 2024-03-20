@@ -3,15 +3,13 @@ package plugins
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
+import utils.extenstion.libs
 
 abstract class SpotlessPlugin(private val isAndroidProject: Boolean) : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("com.diffplug.spotless")
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             extensions.configure<SpotlessExtension> {
                 kotlin {
@@ -23,7 +21,10 @@ abstract class SpotlessPlugin(private val isAndroidProject: Boolean) : Plugin<Pr
                                 put("ktlint_code_style", if (isAndroidProject) "android_studio" else "intellij_idea")
                                 put("android", if (isAndroidProject) "true" else "false")
                                 if (isAndroidProject) {
+                                    put("ij_kotlin_allow_trailing_comma", "true")
+                                    put("ij_kotlin_allow_trailing_comma_on_call_site", "true")
                                     put("ktlint_function_naming_ignore_when_annotated_with", "Composable, Test")
+                                    put("max_line_length", "off")
                                 }
                             }
                         )

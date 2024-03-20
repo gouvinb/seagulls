@@ -19,3 +19,9 @@ import androidx.compose.material.icons.Icons
 
 // Set of Material typography styles to start with
 val Icons = Icons.TwoTone
+
+// Set of Material typography styles to start with
+val IconsSelected = Icons.TwoTone
+
+// Set of Material typography styles to start with
+val IconsUnselected = Icons.Outlined

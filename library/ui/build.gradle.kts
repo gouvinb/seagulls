@@ -18,10 +18,10 @@ import utils.extenstion.configureSourceSetHierarchy
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("plugin.android.library")
-    kotlin("multiplatform")
+    id("plugins.android.library")
+    alias(libs.plugins.kotlin.multiplatform)
 
-    id("plugin.android.library.compose")
+    id("plugins.android.library.compose")
 
     id("plugins.compile.java")
     id("plugins.compile.kotlin")
@@ -35,10 +35,6 @@ version = "0.1.0"
 
 android {
     namespace = group.toString()
-
-    buildFeatures {
-        compose = true
-    }
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -56,19 +52,15 @@ kotlin {
         configureSourceSetHierarchy(
             enableAndroidProject = true,
         )
-
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.androidx.activity.compose)
-
-                implementation(libs.androidx.compose.foundation)
-                implementation(libs.androidx.compose.material3)
-                implementation(libs.androidx.compose.runtime)
-                implementation(libs.androidx.compose.ui.tooling)
-                implementation(libs.androidx.compose.ui.tooling.preview)
-            }
-        }
-        val androidUnitTest by getting {}
-        val androidInstrumentedTest by getting {}
     }
+}
+
+dependencies {
+    "androidMainImplementation"(libs.androidx.activity.compose)
+
+    "androidMainImplementation"(libs.androidx.compose.foundation)
+    "androidMainImplementation"(libs.androidx.compose.material3)
+    "androidMainImplementation"(libs.androidx.compose.runtime)
+    "androidMainImplementation"(libs.androidx.compose.ui.tooling)
+    "androidMainImplementation"(libs.androidx.compose.ui.tooling.preview)
 }
