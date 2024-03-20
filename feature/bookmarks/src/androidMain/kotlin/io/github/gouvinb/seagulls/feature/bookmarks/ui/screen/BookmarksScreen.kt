@@ -22,19 +22,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import io.github.gouvinb.seagulls.feature.bookmarks.BuildConfig
+import io.github.gouvinb.seagulls.feature.bookmarks.navigation.BOOKMARKS_NAVIGATION_ROUTE
 import io.github.gouvinb.seagulls.lib.ui.component.Todo
 import io.github.gouvinb.seagulls.lib.ui.theme.Dimension
 
 @Composable
-fun BookmarksScreen(navController: NavHostController) {
+fun BookmarksScreen(route: String) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Todo(
             text = when {
-                BuildConfig.DEBUG -> "BookmarksScreen route: ${navController.currentDestination?.route}"
+                BuildConfig.DEBUG -> "BookmarksScreen route: $route"
                 else -> null
             },
             modifier = Modifier
@@ -49,5 +48,5 @@ fun BookmarksScreen(navController: NavHostController) {
 @Preview(apiLevel = 33, showBackground = true)
 @Composable
 fun BookmarksScreenPreview() {
-    BookmarksScreen(NavHostController(LocalContext.current))
+    BookmarksScreen(BOOKMARKS_NAVIGATION_ROUTE)
 }

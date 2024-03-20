@@ -20,6 +20,8 @@ import io.github.gouvinb.seagulls.lib.core.data.repository.RssRepository
 import io.github.gouvinb.seagulls.lib.core.data.repository.UserDataRepository
 import io.github.gouvinb.seagulls.lib.core.data.repository.impl.RssRepositoryImpl
 import io.github.gouvinb.seagulls.lib.core.data.repository.impl.UserDataRepositoryImpl
+import io.github.gouvinb.seagulls.lib.core.data.util.NetworkMonitor
+import io.github.gouvinb.seagulls.lib.core.data.util.impl.ConnectivityManagerNetworkMonitor
 import io.github.gouvinb.seagulls.lib.core.datastore.di.dataStoreModule
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -31,4 +33,5 @@ val dataModule = module {
     singleOf(::HttpClientImpl)
     singleOf(::RssRepositoryImpl) { bind<RssRepository>() }
     singleOf(::UserDataRepositoryImpl) { bind<UserDataRepository>() }
+    singleOf(::ConnectivityManagerNetworkMonitor) { bind<NetworkMonitor>() }
 }

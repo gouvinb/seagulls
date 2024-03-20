@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.gouvinb.seagulls.ui
+package io.github.gouvinb.seagulls.feature.stand.navigation
 
-import android.app.Application
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
+import androidx.navigation.compose.composable
+import io.github.gouvinb.seagulls.feature.stand.ui.screen.StandScreen
 
-class SeagullsApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidContext(this@SeagullsApplication)
-            modules(appModule)
-        }
-    }
+const val STAND_NAVIGATION_ROUTE = "/stand"
+
+fun NavController.navigateToStand(navOptions: NavOptions? = null) {
+    this.navigate(STAND_NAVIGATION_ROUTE, navOptions)
+}
+
+fun NavGraphBuilder.standScreen() {
+    composable(STAND_NAVIGATION_ROUTE) { StandScreen(STAND_NAVIGATION_ROUTE) }
 }

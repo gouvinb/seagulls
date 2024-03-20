@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.gouvinb.seagulls.lib.ui.theme
+package io.github.gouvinb.seagulls.lib.core.data.util
 
-import androidx.compose.material.icons.Icons
+import kotlinx.coroutines.flow.Flow
 
-// Set of Material typography styles to start with
-val Icons = Icons.TwoTone
-
-// Set of Material typography styles to start with
-val IconsSelected = Icons.TwoTone
-
-// Set of Material typography styles to start with
-val IconsUnselected = Icons.Outlined
+/**
+ * Utility for reporting app connectivity status
+ */
+interface NetworkMonitor {
+    val isOnline: Flow<Boolean>
+}

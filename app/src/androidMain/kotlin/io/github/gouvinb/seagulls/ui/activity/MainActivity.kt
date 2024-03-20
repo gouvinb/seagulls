@@ -18,48 +18,37 @@ package io.github.gouvinb.seagulls.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import io.github.gouvinb.seagulls.feature.bookmarks.ui.screen.BookmarksScreen
-import io.github.gouvinb.seagulls.feature.home.ui.screen.HomeScreen
-import io.github.gouvinb.seagulls.feature.search.ui.screen.SearchScreen
-import io.github.gouvinb.seagulls.feature.stand.ui.screen.StandScreen
+import io.github.gouvinb.seagulls.lib.core.data.util.NetworkMonitor
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.DarkThemeConfigLocal
 import io.github.gouvinb.seagulls.lib.core.datastore.model.local.ThemeBrandLocal
 import io.github.gouvinb.seagulls.lib.ui.theme.SeagullsTheme
-import io.github.gouvinb.seagulls.ui.screen.Screen
+import io.github.gouvinb.seagulls.ui.screen.SeagullsScreen
 import io.github.gouvinb.seagulls.ui.viewmodel.MainActivityUiState
 import io.github.gouvinb.seagulls.ui.viewmodel.MainActivityViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
+    val networkMonitor: NetworkMonitor by inject()
+
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,14 +75,13 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
         setContent {
             val systemUiController = rememberSystemUiController()
             val darkTheme = shouldUseDarkTheme(uiState)
 
             DisposableEffect(systemUiController, darkTheme) {
                 systemUiController.systemBarsDarkContentEnabled = !darkTheme
+                enableEdgeToEdge()
                 onDispose {}
             }
 
@@ -101,40 +89,10 @@ class MainActivity : ComponentActivity() {
                 darkTheme = darkTheme,
                 androidTheme = shouldUseAndroidTheme(uiState),
             ) {
-                val navController = rememberNavController()
-
-                Scaffold(
-                    bottomBar = {
-                        NavigationBar {
-                            val navBackStackEntry by navController.currentBackStackEntryAsState()
-                            val currentDestination = navBackStackEntry?.destination
-                            Screen.items.forEach { screen ->
-                                NavigationBarItem(
-                                    icon = { Icon(screen.icon, contentDescription = stringResource(screen.titleRes)) },
-                                    label = { Text(stringResource(screen.titleRes)) },
-                                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                    onClick = {
-                                        navController.navigate(screen.route) {
-                                            launchSingleTop = true
-                                            restoreState = true
-
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
-                                            }
-                                        }
-                                    },
-                                )
-                            }
-                        }
-                    },
-                ) { innerPadding ->
-                    NavHost(navController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)) {
-                        composable(Screen.Home.route) { HomeScreen(navController) }
-                        composable(Screen.Search.route) { SearchScreen(navController) }
-                        composable(Screen.Bookmarks.route) { BookmarksScreen(navController) }
-                        composable(Screen.Stand.route) { StandScreen(navController) }
-                    }
-                }
+                SeagullsScreen(
+                    networkMonitor = networkMonitor,
+                    windowSizeClass = calculateWindowSizeClass(this),
+                )
             }
         }
     }

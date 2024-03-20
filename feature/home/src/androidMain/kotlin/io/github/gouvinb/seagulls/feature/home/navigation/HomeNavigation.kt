@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.gouvinb.seagulls.lib.ui.theme
+package io.github.gouvinb.seagulls.feature.home.navigation
 
-import androidx.compose.material.icons.Icons
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
+import androidx.navigation.compose.composable
+import io.github.gouvinb.seagulls.feature.home.ui.screen.HomeScreen
 
-// Set of Material typography styles to start with
-val Icons = Icons.TwoTone
+const val HOME_NAVIGATION_ROUTE = "/home"
 
-// Set of Material typography styles to start with
-val IconsSelected = Icons.TwoTone
+fun NavController.navigateToHome(navOptions: NavOptions? = null) {
+    this.navigate(HOME_NAVIGATION_ROUTE, navOptions)
+}
 
-// Set of Material typography styles to start with
-val IconsUnselected = Icons.Outlined
+fun NavGraphBuilder.homeScreen() {
+    composable(HOME_NAVIGATION_ROUTE) { HomeScreen(HOME_NAVIGATION_ROUTE) }
+}

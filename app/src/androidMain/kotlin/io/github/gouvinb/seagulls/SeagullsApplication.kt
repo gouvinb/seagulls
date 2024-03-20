@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.gouvinb.seagulls.lib.ui.theme
+package io.github.gouvinb.seagulls
 
-import androidx.compose.material.icons.Icons
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-// Set of Material typography styles to start with
-val Icons = Icons.TwoTone
-
-// Set of Material typography styles to start with
-val IconsSelected = Icons.TwoTone
-
-// Set of Material typography styles to start with
-val IconsUnselected = Icons.Outlined
+class SeagullsApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@SeagullsApplication)
+            modules(appModule)
+        }
+    }
+}

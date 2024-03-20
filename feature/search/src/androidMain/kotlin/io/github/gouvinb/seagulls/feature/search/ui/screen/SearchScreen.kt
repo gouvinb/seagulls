@@ -22,19 +22,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import io.github.gouvinb.seagulls.feature.search.BuildConfig
+import io.github.gouvinb.seagulls.feature.search.navigation.SEARCH_NAVIGATION_ROUTE
 import io.github.gouvinb.seagulls.lib.ui.component.Todo
 import io.github.gouvinb.seagulls.lib.ui.theme.Dimension
 
 @Composable
-fun SearchScreen(navController: NavHostController) {
+fun SearchScreen(route: String) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Todo(
             text = when {
-                BuildConfig.DEBUG -> "SearchScreen route: ${navController.currentDestination?.route}"
+                BuildConfig.DEBUG -> "SearchScreen route: $route"
                 else -> null
             },
             modifier = Modifier
@@ -49,5 +48,5 @@ fun SearchScreen(navController: NavHostController) {
 @Preview(apiLevel = 33, showBackground = true)
 @Composable
 fun SearchScreenPreview() {
-    SearchScreen(NavHostController(LocalContext.current))
+    SearchScreen(SEARCH_NAVIGATION_ROUTE)
 }

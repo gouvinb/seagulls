@@ -74,12 +74,17 @@ dependencies {
     "androidMainImplementation"(libs.androidx.compose.material)
     "androidMainImplementation"(libs.androidx.compose.material.iconsExtended)
     "androidMainImplementation"(libs.androidx.compose.material3)
+    "androidMainImplementation"(libs.androidx.compose.material3.windowSizeClass)
     "androidMainImplementation"(libs.androidx.compose.navigationCompose)
     "androidMainImplementation"(libs.androidx.compose.runtime)
     "androidMainImplementation"(libs.androidx.compose.ui.tooling)
     "androidMainImplementation"(libs.androidx.compose.ui.tooling.preview)
 
     "androidMainImplementation"(libs.androidx.core.splashscreen)
+
+    "androidMainImplementation"(libs.androidx.lifecycle.runtime.compose)
+    "androidMainImplementation"(libs.androidx.lifecycle.viewModel.compose)
+
     "androidMainImplementation"(libs.accompanist.systemuicontroller)
 
     "androidMainImplementation"(projects.seagulls.library.ui)

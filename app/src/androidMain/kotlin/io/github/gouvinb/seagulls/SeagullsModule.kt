@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.gouvinb.seagulls.ui
+package io.github.gouvinb.seagulls
 
 import io.github.gouvinb.seagulls.feature.bookmarks.di.bookmarksModule
 import io.github.gouvinb.seagulls.feature.home.di.homeModule
